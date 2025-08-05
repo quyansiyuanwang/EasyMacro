@@ -1,0 +1,68 @@
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check-md-files:
+    runs-on: windows-latest
+    outputs:
+      only_md: ${{ steps.check.outputs.only_md }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch base branch
+        run: git fetch origin $env:GITHUB_BASE_REF
+        shell: pwsh
+
+      - name: Check if only .md files changed
+        id: check
+        shell: pwsh
+        run: |
+          $base = $env:GITHUB_BASE_REF
+          $head = $env:GITHUB_SHA
+          $result = python "tools/GitCheckDiff/diff_only_docs.py" origin/$base $head
+          if ($result -eq 'only-md') {
+            echo "only_md=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          } else {
+            echo "only_md=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          }
+          exit 0
+
+  check-type-and-style:
+    runs-on: windows-latest
+    if: |
+      github.event_name != 'pull_request' || needs.check-md-files.outputs.only_md != 'true'
+    needs: [check-md-files]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.13
+
+      - name: Pre-Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mypy black isort
+
+      - name: Install dependencies
+        run: |
+          python deps\install_deps.py
+          python deps\install_mypy_types.py
+
+      - name: Run type check
+        run: |
+          python -m tools check_type
+
+      - name: Check code format
+        run: |
+          python -m tools format --check
+
+      - name: Clean caches
+        run: |
+          python -m tools clean
