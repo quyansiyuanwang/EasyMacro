@@ -1,4 +1,4 @@
-from typing import Dict, List, Self
+from typing import Dict, List, Self, Union
 
 from pydantic import BaseModel, Field
 
@@ -6,7 +6,9 @@ from pydantic import BaseModel, Field
 class Macro(BaseModel):
     description: str = Field(str(), description="Description of the macro")
     macro_json: str = Field(..., description="Path of the macro JSON file")
-    trigger: List[str] = Field(..., description="List of triggers for the macro")
+    trigger: List[Union[str, List[str]]] = Field(
+        ..., description="List of triggers for the macro"
+    )
 
     @classmethod
     def from_json(cls, json_data: str) -> Self:

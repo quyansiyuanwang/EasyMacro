@@ -13,7 +13,7 @@ class Trigger:
 
     def load(self) -> Self:
         for _, macro in self.manager.macros.items():
-            keyboard_monitor.add(
+            keyboard_monitor.adds(
                 macro.trigger,
                 workflow_run,
                 (macro.macro_json,),
