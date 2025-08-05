@@ -1,8 +1,8 @@
 import argparse
 import sys
 
-from .Core.manager import Manager
-from .Core.trigger import Trigger
+from ..Core.manager import Manager
+from ..Core.trigger import Trigger
 
 
 def load_macros(path: str):
