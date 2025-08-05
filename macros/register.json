@@ -1,0 +1,9 @@
+{
+  "$schema": "./schema/generated.schema.json",
+  "macros": {
+    "Test": {
+      "macro_json": "macros/macro.json",
+      "trigger": ["grave"]
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "$defs": {
+    "Macro": {
+      "properties": {
+        "description": {
+          "default": "",
+          "description": "Description of the macro",
+          "title": "Description",
+          "type": "string"
+        },
+        "macro_json": {
+          "description": "Path of the macro JSON file",
+          "title": "Macro Json",
+          "type": "string"
+        },
+        "trigger": {
+          "description": "List of triggers for the macro",
+          "items": {
+            "type": "string"
+          },
+          "title": "Trigger",
+          "type": "array"
+        }
+      },
+      "required": [
+        "macro_json",
+        "trigger"
+      ],
+      "title": "Macro",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "macros": {
+      "additionalProperties": {
+        "$ref": "#/$defs/Macro"
+      },
+      "description": "List of macros in the macro set",
+      "title": "Macros",
+      "type": "object"
+    }
+  },
+  "required": [
+    "macros"
+  ],
+  "title": "MacroSet",
+  "type": "object"
+}

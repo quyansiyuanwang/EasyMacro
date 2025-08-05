@@ -1,0 +1,3 @@
+[submodule "src/ThirdParty/RecognizerFramework"]
+	path = src/ThirdParty/RecognizerFramework
+	url = https://github.com/quyansiyuanwang/RecognizerFramework.git

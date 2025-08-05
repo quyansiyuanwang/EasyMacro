@@ -1,0 +1,12 @@
+# Folders
+log/
+.vscode/
+
+**/__pycache__/
+
+# Files
+macros/*.*
+
+# Exclude
+!macros/macro.json
+!macros/register.json

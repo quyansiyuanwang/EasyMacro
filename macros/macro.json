@@ -1,0 +1,19 @@
+{
+  "$schema": "../src/ThirdParty/RecognizerFramework/workflow/schema/generated.schema.json",
+  "begin": "OpenSettings",
+  "globals": {
+    "debug": true
+  },
+  "jobs": {
+    "OpenSettings":{
+      "type": "Input",
+      "input": {
+        "type": "Keyboard",
+        "keyboard": {
+          "type": "Type",
+          "keys": ["win", "i"]
+        }
+      }
+    }
+  }
+}
