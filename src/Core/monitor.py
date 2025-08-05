@@ -53,6 +53,12 @@ class KeyboardMonitor:
             CallbackPack(callback=callback, args=args)
         )
 
+    def adds(
+        self, hotkeys: List[KeyTypes], callback: CallbackType, args: ArgsType
+    ) -> None:
+        for hotkey in hotkeys:
+            self.add(hotkey=hotkey, callback=callback, args=args)
+
     def register(
         self, hotkey: KeyTypes, args: ArgsType = ()
     ) -> Callable[[CallbackType], CallbackType]:
