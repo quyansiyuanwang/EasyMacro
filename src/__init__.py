@@ -1,6 +1,6 @@
-from .CLI import cli, load_macros
+from .CLI import cli
 
 __all__ = [
-    "load_macros",
+    # modules
     "cli",
 ]
